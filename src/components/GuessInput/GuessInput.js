@@ -22,7 +22,8 @@ function GuessInput() {
         id="guess-input"
         value={guess}
         type="text"
-        pattern="[a-zA-Z]{5,5}"
+        pattern="[a-zA-Z]{5}"
+        title="5 letter word"
       />
     </form>
   );
