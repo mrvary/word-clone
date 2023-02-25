@@ -5,15 +5,10 @@ import { NUM_OF_GUESSES_ALLOWED } from "../../constants.js";
 import Guess from "../Guess";
 
 function GuessResults({ guesses }) {
-  const rows = [
-    ...guesses,
-    ...range(NUM_OF_GUESSES_ALLOWED).map((_) => ""),
-  ].slice(0, 6);
-
   return (
     <div className="guess-results">
-      {rows.map((guess, index) => (
-        <Guess key={index} guess={guess} />
+      {range(NUM_OF_GUESSES_ALLOWED).map((num) => (
+        <Guess key={num} guess={guesses[num]} />
       ))}
     </div>
   );
