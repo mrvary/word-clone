@@ -14,16 +14,15 @@ console.info({ answer });
 
 function Game() {
   const [guesses, setGuesses] = React.useState([]);
-  const [guessedCorrectly, setGuessedCorrectly] = React.useState(false);
-  const [gameOver, setGameOver] = React.useState(false);
+  // running | won | lost
+  const [gameStatus, setGameStatus] = React.useState("running");
 
   const handleGuess = (tentativeGuess) => {
     if (tentativeGuess === answer) {
-      setGuessedCorrectly(true);
-      setGameOver(true);
+      setGameStatus("won");
     }
     if (guesses.length === NUM_OF_GUESSES_ALLOWED - 1) {
-      setGameOver(true);
+      setGameStatus("lost");
     }
     setGuesses([...guesses, tentativeGuess]);
   };
@@ -31,12 +30,15 @@ function Game() {
   return (
     <>
       <GuessResults guesses={guesses} answer={answer}></GuessResults>
-      <GuessInput handleGuess={handleGuess} gameOver={gameOver}></GuessInput>
-      {gameOver && (
+      <GuessInput
+        handleGuess={handleGuess}
+        disabled={gameStatus !== "running"}
+      ></GuessInput>
+      {gameStatus !== "running" && (
         <Banner
           answer={answer}
           guesses={guesses}
-          type={guessedCorrectly ? "happy" : "sad"}
+          type={gameStatus === "won" ? "happy" : "sad"}
         />
       )}
     </>
